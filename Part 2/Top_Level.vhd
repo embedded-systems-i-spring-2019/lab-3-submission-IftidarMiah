@@ -7,7 +7,8 @@ entity Top_Level is
     port(   clk : in std_logic;
             btn : in std_logic_vector(1 downto 0);
             TXD : in std_logic;
-            RXD : out std_logic);
+            RXD, newChar : out std_logic;
+            charRec : out std_logic_vector (7 downto 0));
 end Top_Level;
 
 architecture Top_Level_arch of Top_Level is
@@ -67,5 +68,18 @@ begin
                     rdy => ready,
                     send => send,
                     char => char
+        );
+        
+    u5: UART
+        Port Map(   clk => clk, 
+                    en => en, 
+                    send => send, 
+                    rx => TXD, 
+                    rst => rst,
+                    charSend => char,
+                    ready => ready, 
+                    tx => RXD, 
+                    newChar => newChar,
+                    charRec => charRec
         );
 end Top_Level_arch;

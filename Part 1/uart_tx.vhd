@@ -17,7 +17,7 @@ architecture fsm of uart_tx is
     signal curr : state := idle;
     
     -- counter for data state
-    signal count : std_logic_vector(2 downto 0) := (others => '0');
+    signal count : std_logic_vector(4 downto 0) := (others => '0');
     
     -- register for storing char
     signal char_reg : std_logic_vector(7 downto 0) := (others => '0');

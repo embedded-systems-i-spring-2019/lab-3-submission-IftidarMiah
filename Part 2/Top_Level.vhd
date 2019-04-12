@@ -7,14 +7,19 @@ entity Top_Level is
     port(   clk : in std_logic;
             btn : in std_logic_vector(1 downto 0);
             TXD : in std_logic;
-            RXD, newChar : out std_logic;
-            charRec : out std_logic_vector (7 downto 0));
+            RXD : out std_logic;
+--            newChar : out std_logic;
+            CTS, RTS    : out std_logic);
+--            charRec : out std_logic_vector (7 downto 0));
 end Top_Level;
 
 architecture Top_Level_arch of Top_Level is
     
-    signal rst, sender_btn, en, ready, send :    std_logic;
-    signal  char                            :   std_logic_vector(7 downto 0);
+    signal rst, sender_btn, en, ready, send :   std_logic;
+    signal char                             :   std_logic_vector(7 downto 0);
+    
+    signal zero                             :   std_logic:= '0';
+    signal zeroes                           :   std_logic_vector(7 downto 0) := (others => '0');
     
     component sender is
         port (  rst, clk, en, btn, rdy          : in std_logic;
@@ -42,6 +47,9 @@ architecture Top_Level_arch of Top_Level is
     end component;
     
 begin
+
+    CTS <= '0';     -- Grounding CTS and RTS, connect PMOD JB7 Y18 pin5 = GND
+    RTS <= '0';
 
     u1: debounce
         Port Map(    clk     => clk,
@@ -78,8 +86,8 @@ begin
                     rst => rst,
                     charSend => char,
                     ready => ready, 
-                    tx => RXD, 
-                    newChar => newChar,
-                    charRec => charRec
+                    tx => RXD
+--                    newChar => newChar,
+--                    charRec => charRec
         );
 end Top_Level_arch;

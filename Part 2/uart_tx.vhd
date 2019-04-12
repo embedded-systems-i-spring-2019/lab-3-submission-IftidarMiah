@@ -60,7 +60,8 @@ begin
                     when data =>
                         if unsigned(count) < 8 then
                             tx <= char_reg(0);
-                            char_reg <= '1' & char_reg(7 downto 1);
+                            char_reg <= '0' & char_reg(7 downto 1);
+--                            tx <= char_reg(to_integer(unsigned(count)));
                             count <= std_logic_vector(unsigned(count) + 1);
                         else
                             curr <= idle;

@@ -1,6 +1,3 @@
--- Lab 1 Iftidar Miah
--- Clock counter, outputs clock enable (div) for dividing the clock
-
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
